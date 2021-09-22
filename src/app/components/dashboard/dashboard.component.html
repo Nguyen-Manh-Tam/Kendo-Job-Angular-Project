@@ -1,0 +1,61 @@
+<div class="card-container">
+    <div class="card-header-wrapper">
+        <h3 class="card-title"> Chức danh </h3>
+        <span></span>
+    </div>
+    <kendo-grid [data]="view | async" [height]="533" [pageSize]="gridState.take" [skip]="gridState.skip"
+        [sort]="gridState.sort" [pageable]="true" [sortable]="true" (dataStateChange)="onStateChange($event)"
+        (edit)="editHandler($event)" (remove)="removeHandler($event)" (add)="addHandler()">
+        <ng-template kendoGridToolbarTemplate>
+            <button kendoGridAddCommand>Thêm mới</button>
+        </ng-template>
+        <kendo-grid-command-column>
+            <ng-template kendoGridCellTemplate let-dataItem="dataItem" let-rowIndex="rowIndex">
+                <input type="checkbox" kendoCheckBox (click)="onClick(dataItem, rowIndex)" />
+                </ng-template>
+        </kendo-grid-command-column>
+        <kendo-grid-column field="Code" title="Mã chức danh"></kendo-grid-column>
+        <kendo-grid-column field="Name" title="Tên chức danh"></kendo-grid-column>
+        <kendo-grid-column field="Description" title="Mô tả"></kendo-grid-column>
+        <kendo-grid-command-column title="Yêu cầu" width="220">
+            <ng-template kendoGridCellTemplate>
+                <button kendoGridEditCommand [primary]="true">Chỉnh sửa</button>
+                <button kendoGridRemoveCommand>Xóa</button>
+            </ng-template>
+        </kendo-grid-command-column>
+        <!-- <kendo-grid-command-column title="Thông tin">
+            <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                <button (click)="showModal(rowIndex)" *ngIf="opened !== rowIndex" class="k-button">Thông tin</button>
+                <kendo-dialog width='300px' *ngIf="opened == rowIndex" (close)="close()">
+                    <kendo-dialog-titlebar>
+                        <div style="font-size: 18px; line-height: 1.3em;">
+                            <span></span> Thông tin chức danh
+                        </div>
+                    </kendo-dialog-titlebar>
+
+                        <a href="/info" style="color: blue;"> <u>Nhân viên phòng ban</u> </a>
+
+                    <hr  width="100%" size="1px" align="center" color="red" />
+
+                    <kendo-label >
+                        <h5>Phòng ban:</h5>
+                      </kendo-label>
+
+                    <strong>Mã phòng ban</strong> : {{ dataItem.Code }}
+                    <br>
+                    <br>
+                    <strong>Tên phòng ban</strong> : {{ dataItem.Name }}
+                    <br>
+                    <br>
+                    <strong>Mô tả</strong> : {{ dataItem.Description }}
+                    <br>
+                    <br>
+                    
+                </kendo-dialog>
+            </ng-template>
+        </kendo-grid-command-column> -->
+    </kendo-grid>
+
+    <kendo-grid-dashboard-info-edit-form [model]="editDataItem" [isNew]="isNew" (save)="saveHandler($event)"
+        (cancel)="cancelHandler()">
+    </kendo-grid-dashboard-info-edit-form>

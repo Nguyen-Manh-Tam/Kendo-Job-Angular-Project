@@ -1,0 +1,73 @@
+<app-header-component (toggle)="toggleDrawer(drawer)" [selectedPage]="selected"></app-header-component>
+<kendo-drawer-container>
+    <kendo-drawer #drawer [items]="items" [mode]="mode" [mini]="mini" [expanded]="true" [animation]="false"
+        (select)="onSelect($event)">
+    </kendo-drawer>
+    <kendo-drawer-content>
+        <router-outlet></router-outlet>
+    </kendo-drawer-content>
+
+    <kendo-drawer #drawer1 mode="push" class="panel" [(expanded)]="expanded1">
+        <ng-template kendoDrawerTemplate *ngFor="let data of dataPhongBan" let-rowIndexs>
+            <div class="content-panel">
+                <h5 style="margin-bottom : 0;">Nhân viên :</h5>
+                <tr *ngFor="let datass of dataEmployees">
+                    <a href="/info?code={{datass.Code}}" (onClick)="goToNhanVien()">{{datass.Name}} </a>
+                </tr>
+                <hr width="100%" size="1px" align="center" color="red" />
+                <kendo-label>
+                    <h5>{{ data.Name }}</h5>
+                </kendo-label>
+                <strong>Mã phòng ban</strong> : {{ data.Code }}
+                <br>
+                <br>
+                <strong>Tên phòng ban</strong> : {{ data.Name }}
+                <br>
+                <br>
+                <strong>Ngày thành lập</strong> : {{ data.CreateDate }}
+                <br>
+                <br>
+                <strong>Mô tả</strong> : {{ data.Description }}
+            </div>
+        </ng-template>
+    </kendo-drawer>
+
+    <kendo-drawer #drawer2 mode="push" class="panel" [(expanded)]="expanded2">
+        <ng-template kendoDrawerTemplate *ngFor="let datas of dataChucDanh" let-rowIndexss>
+            <div class="content-panel">
+                <h5 style="margin-bottom : 0;">Nhân viên :</h5>
+                <tr *ngFor="let datass of dataEmployees">
+                    <a href="/info" >{{datass.Name}} </a>
+                </tr>
+                <hr width="100%" size="1px" align="center" color="red" />
+                <kendo-label>
+                    <h5>{{ datas.Name }}</h5>
+                </kendo-label>
+                <strong>Mã chức danh</strong> : {{ datas.Code }}
+                <br>
+                <br>
+                <strong>Tên chức danh</strong> : {{ datas.Name }}
+                <br>
+                <br>
+                <strong>Mô tả</strong> : {{ datas.Description }}
+            </div>
+        </ng-template>
+    </kendo-drawer>
+
+    <kendo-drawer #drawer3 mode="push" class="panel"  [(expanded)]="expanded3">
+        <ng-template kendoDrawerTemplate *ngFor="let datas of dataNhanVien" let-rowIndexs="rowIndex">
+            <div class="content-panel">
+                <kendo-label>
+                    <h5>Nhân viên: {{ datas.Name }}</h5>
+                </kendo-label>
+                <strong>Mã nhân viên</strong> : {{ datas.Code }}
+                <br>
+                <br>
+                <strong>Tên nhân viên</strong> : {{ datas.Name }}
+                <br>
+                <br>
+                <strong>Mô tả</strong> : {{ datas.Description }}
+            </div>
+        </ng-template>
+    </kendo-drawer>
+</kendo-drawer-container>

@@ -1,0 +1,33 @@
+<div class="card-container">
+	<div class="card-header-wrapper">
+		<h3 class="card-title"> Phòng Ban </h3>
+		<span></span>
+	</div>
+	<div>
+		<kendo-grid [data]="gridData" [height]="533" [pageSize]="gridState.take" [skip]="gridState.skip"
+			[sort]="gridState.sort" [pageable]="true" [sortable]="true" (dataStateChange)="onStateChange($event)"
+			(edit)="editHandler($event)" (remove)="removeHandler($event)" (add)="addHandler()">
+			<ng-template kendoGridToolbarTemplate>
+				<button kendoGridAddCommand>Thêm mới</button>
+			</ng-template>
+			<kendo-grid-command-column>
+				<ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+					<input type="checkbox" kendoCheckBox (click)="onClick(dataItem, rowIndex)" />
+				</ng-template>
+			</kendo-grid-command-column>
+			<kendo-grid-column field="Code" title="Mã phòng ban"></kendo-grid-column>
+			<kendo-grid-column field="Name" title="Tên phòng ban"></kendo-grid-column>
+			<kendo-grid-column field="CreateDate" title="Ngày thành lập"></kendo-grid-column>
+			<kendo-grid-column field="Description" title="Mô tả"></kendo-grid-column>
+			<kendo-grid-command-column title="Yêu cầu" width="220">
+				<ng-template kendoGridCellTemplate>
+					<button kendoGridEditCommand [primary]="true">Chỉnh sửa</button>
+					<button kendoGridRemoveCommand>Xóa</button>
+				</ng-template>
+			</kendo-grid-command-column>
+		</kendo-grid>
+	</div>
+	<kendo-grid-team-edit-form [model]="editDataItem" [isNew]="isNew" (save)="saveHandler($event)"
+		(cancel)="cancelHandler()">
+	</kendo-grid-team-edit-form>
+</div>
