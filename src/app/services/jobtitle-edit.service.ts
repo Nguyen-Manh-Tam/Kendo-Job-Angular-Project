@@ -10,7 +10,7 @@ const UPDATE_ACTION = 'update';
 const REMOVE_ACTION = 'destroy';
 
 @Injectable()
-export class DashboardEditService extends BehaviorSubject<any[]> {
+export class JobTitleEditService extends BehaviorSubject<any[]> {
     constructor(private http: HttpClient) {
         super([]);
     }

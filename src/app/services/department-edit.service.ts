@@ -10,12 +10,12 @@ const UPDATE_ACTION = 'update';
 const REMOVE_ACTION = 'destroy';
 
 @Injectable()
-export class InfoEditService extends BehaviorSubject<any[]> {
+export class DepartmentEditService extends BehaviorSubject<any[]> {
     constructor(private http: HttpClient) {
         super([]);
     }
 
-    private data: any[] = [];
+    private data: any[] = [] = departments;
 
     public read() {
         if (this.data.length) {
@@ -70,32 +70,8 @@ export class InfoEditService extends BehaviorSubject<any[]> {
         //     .jsonp(`https://demos.telerik.com/kendo-ui/service/Products/${action}?${this.serializeModels(data)}`, 'callback')
         //     .pipe(map(res => <any[]>res));
         return new Observable<any[]>((observable) => {
-            const updatedEmployees = [];
-            for (const employee of employees) {
-                let titles = '';
-                let i = 0;
-                for (const title of employee.Titles) {
-                    const foundJob = jobTitles.find((jobTitle) => title.JobTitleCode === jobTitle.Code);
-                    if (foundJob) {
-                        titles += foundJob.Name;
-                        if (i < employee.Titles.length - 1) {
-                            titles += ', ';
-                        }
-                    }
-                    ++i;
-                }
-                let updatedEmployee = {
-                    Code: employee.Code, 
-                    Name: employee.Name,
-                    Titles: employee.Titles,
-                    MsgTitles: titles,
-                    Description: employee.Description
-                };
-                
-                updatedEmployees.push(updatedEmployee)
-            }
-            observable.next(updatedEmployees);
-        })
+            observable.next(departments) ;
+        });
     }
 
     private serializeModels(data?: any): string {

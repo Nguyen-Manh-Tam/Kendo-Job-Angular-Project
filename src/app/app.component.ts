@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 import { MessageService } from '@progress/kendo-angular-l10n';
-import { DrawerComponent, DrawerMode, DrawerSelectEvent } from '@progress/kendo-angular-layout';
+import { DrawerComponent, DrawerItem, DrawerMode, DrawerSelectEvent } from '@progress/kendo-angular-layout';
 import { CustomMessagesService } from './services/custom-messages.service';
 import { SharedService } from './services/shared-service';
 import { employees } from "./resources/products";
@@ -23,13 +23,10 @@ export class AppComponent implements OnInit, OnDestroy {
     public dataPhongBan: Array<any> = [];
     public dataChucDanh: Array<any> = [];
     public dataNhanVien: Array<any> = [];
-    public dataNhanVienHienTai : Array<any> = [];
+    public dataNhanVienHienTai: Array<any> = [];
     public rowIndexs: any;
     public opened = null;
-    public dataEmployees : any = employees;
-    public expanded1 = false;
-    public expanded2 = false;
-    public expanded3 = false;
+    public dataEmployees: any = employees;
 
     constructor(private router: Router, public msgService: MessageService,
         //
@@ -37,31 +34,32 @@ export class AppComponent implements OnInit, OnDestroy {
     ) {
         this.customMsgService = this.msgService as CustomMessagesService;
         //
-        this._sharedService.changeEmitted$.subscribe(
-            (emitData) => {
-                const type = emitData.type;
-                if (type === 'phong ban') {
-                    this.drawer1.toggle();
-                    const dataItems = emitData.dataItem;
-                    this.rowIndexs = emitData.rowIndex;
-                    this.dataPhongBan = []; // làm rỗng dataPhongBan trước khi push dữ liệu vào 
-                    this.dataPhongBan.push(dataItems);
-                    console.log(this.dataPhongBan, "gggggggkkk");
-                } else if (type === 'chuc danh') {
-                    this.drawer2.toggle();
-                    const dataItems = emitData.dataItem;
-                    const rowIndexss = emitData.rowIndex;
-                    this.dataChucDanh = [];
-                    this.dataChucDanh.push(dataItems);
-                } else {
-                    this.drawer3.toggle();
-                    const dataItems = emitData.dataItem;
-                    const rowIndexss = emitData.rowIndex;
-                    this.dataNhanVien = [];
-                    this.dataNhanVien.push(dataItems);
-                }
-            },
-        );
+        // this._sharedService.changeEmitted$.subscribe(
+        //     (emitData) => {
+        //         const type = emitData.type;
+        //         if (type === 'phong ban') {
+        //             this.drawer1.toggle();
+        //             const dataItems = emitData.dataItem;
+        //             this.rowIndexs = emitData.rowIndex;
+        //             this.dataPhongBan = []; // làm rỗng dataPhongBan trước khi push dữ liệu vào 
+        //             this.dataPhongBan.push(dataItems);
+        //             console.log(this.dataPhongBan, "gggggggkkk");
+                // } else if (type === 'nhan vien') {
+                //     this.drawer3.toggle();
+                //     const dataItems = emitData.dataItem;
+                //     const rowIndexss = emitData.rowIndex;
+                //     this.dataNhanVien = [];
+                //     this.dataNhanVien.push(dataItems);
+                // }
+                //  else {
+                //     this.drawer2.toggle();
+                //     const dataItems = emitData.dataItem;
+                //     const rowIndexss = emitData.rowIndex;
+                //     this.dataNhanVien = [];
+                //     this.dataNhanVien.push(dataItems);
+                // }
+        //     },
+        // );
 
     }
 
@@ -90,8 +88,6 @@ export class AppComponent implements OnInit, OnDestroy {
         window.addEventListener('resize', () => {
             this.setDrawerConfig();
         });
-        console.log(this.dataEmployees, "ggggggg");
-        
     }
 
     ngOnDestroy() {
@@ -124,9 +120,5 @@ export class AppComponent implements OnInit, OnDestroy {
     public onSelect(ev: DrawerSelectEvent): void {
         this.router.navigate([ev.item.path]);
         this.selected = ev.item.text;
-    }
-
-    goToNhanVien(){
-
     }
 }

@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from "@angular/core";
 import { Validators, FormGroup, FormControl } from "@angular/forms";
-import { Department } from "../../models/product.model";
+import { Department } from "../../../models/product.model";
 
 @Component({
   selector: "kendo-grid-team-edit-form",
@@ -108,7 +108,7 @@ import { Department } from "../../models/product.model";
     </kendo-dialog>
   `,
 })
-export class TeamEditFormComponent {
+export class DepartmentEditFormComponent {
   public active = false;
   public editForm: FormGroup = new FormGroup({
     Code: new FormControl("", Validators.required),

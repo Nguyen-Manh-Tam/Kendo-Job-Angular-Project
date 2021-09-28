@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from "@angular/core";
 import { Validators, FormGroup, FormControl } from "@angular/forms";
-import { JobTitle } from "../../models/product.model";
+import { JobTitle } from "../../../models/product.model";
 
 @Component({
   selector: "kendo-grid-dashboard-info-edit-form",
@@ -22,7 +22,7 @@ import { JobTitle } from "../../models/product.model";
       (close)="closeForm()"
     >
       <kendo-dialog-titlebar>
-        {{ isNew ? "Thêm mới nhân viên" : "Chỉnh sửa nhân viên" }}
+        {{ isNew ? "Thêm mới chức danh" : "Chỉnh sửa chức danh" }}
       </kendo-dialog-titlebar>
 
       <form novalidate class="k-form" [formGroup]="editForm">
@@ -104,7 +104,7 @@ import { JobTitle } from "../../models/product.model";
     </kendo-dialog>
   `,
 })
-export class DashboardEditFormComponent {
+export class JobTitleEditFormComponent {
   public active = false;
   public editForm: FormGroup = new FormGroup({
     Code: new FormControl("", Validators.required),

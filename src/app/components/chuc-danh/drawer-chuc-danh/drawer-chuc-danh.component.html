@@ -1,0 +1,19 @@
+<div style="margin: 10px;" *ngFor="let data of dataChucDanh">
+    <div class="content-panel">
+        <h5 style="margin-bottom : 0;">{{data.Name}} :</h5>
+        <tr *ngFor="let datass of dataEmployees">
+            <a href="/info?code={{datass.Code}}">{{datass.Name}} </a>
+        </tr>
+        <hr width="100%" size="1px" align="center" color="red" />
+        <kendo-label>
+            <h5>{{ data.Name }}</h5>
+        </kendo-label>
+        <strong>Mã chức danh</strong> : {{ data.Code }}
+        <br>
+        <br>
+        <strong>Tên chức danh</strong> : {{ data.Name }}
+        <br>
+        <br>
+        <strong>Mô tả</strong> : {{ data.Description }}
+    </div>
+</div>

@@ -4,17 +4,40 @@
 		<span></span>
 	</div>
 	<div>
-		<kendo-grid [data]="gridData" [height]="533" [pageSize]="gridState.take" [skip]="gridState.skip"
-			[sort]="gridState.sort" [pageable]="true" [sortable]="true" (dataStateChange)="onStateChange($event)"
-			(edit)="editHandler($event)" (remove)="removeHandler($event)" (add)="addHandler()">
+		<kendo-grid 			
+		[data]="gridData"
+		[height]="533" 
+		[pageSize]="gridState.take" 
+		[skip]="gridState.skip"
+		[sort]="gridState.sort" 
+		[pageable]="true" 
+		[sortable]="true" 
+		(dataStateChange)="onStateChange($event)"
+		(edit)="editHandler($event)" 
+		(remove)="removeHandler($event)" 
+		(add)="addHandler()"
+		[selectable]="{ mode: 'single', enabled: true, checkboxOnly: true }" 
+		[navigable]="true"
+		[selectedKeys]="selectedRows"
+		[kendoGridSelectBy]="'Code'"
+		(selectionChange)="handleSelectionChange($event)"
+>
+
 			<ng-template kendoGridToolbarTemplate>
 				<button kendoGridAddCommand>Thêm mới</button>
 			</ng-template>
-			<kendo-grid-command-column>
+			<!-- <kendo-grid-checkbox-column>
 				<ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
-					<input type="checkbox" kendoCheckBox (click)="onClick(dataItem, rowIndex)" />
+					<input type="checkbox" kendoCheckBox (click)="onButtonClick(dataItem, rowIndex, checked)" />
+					<p>{{checked}}</p>
 				</ng-template>
-			</kendo-grid-command-column>
+			</kendo-grid-checkbox-column> -->
+			<kendo-grid-checkbox-column>
+				<ng-template kendoGridCellTemplate let-rowIndex="rowIndex" let-dataItem>
+					<input [kendoGridSelectionCheckbox]="rowIndex"
+						(click)="onButtonClick(dataItem, rowIndex, selectedRows)" />
+				</ng-template>
+			</kendo-grid-checkbox-column>
 			<kendo-grid-column field="Code" title="Mã phòng ban"></kendo-grid-column>
 			<kendo-grid-column field="Name" title="Tên phòng ban"></kendo-grid-column>
 			<kendo-grid-column field="CreateDate" title="Ngày thành lập"></kendo-grid-column>

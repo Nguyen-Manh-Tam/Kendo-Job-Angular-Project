@@ -10,10 +10,8 @@ import {
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { InfoComponent } from './components/info/info.component';
+import { JobTitleComponent } from './components/chuc-danh/jobtitle/jobtitle.component';
 import { HeaderComponent } from './header/header.component';
-import { TeamComponent } from './components/team/team.component';
 import { CustomMessagesService } from './services/custom-messages.service';
 
 import { ExcelModule, GridModule, PDFModule } from '@progress/kendo-angular-grid';
@@ -22,7 +20,7 @@ import { LayoutModule } from '@progress/kendo-angular-layout';
 import { SchedulerModule } from '@progress/kendo-angular-scheduler';
 import { ButtonsModule } from '@progress/kendo-angular-buttons';
 import { EditorModule } from '@progress/kendo-angular-editor';
-import { FileSelectModule } from '@progress/kendo-angular-upload';
+import { FileSelectModule, UploadModule } from '@progress/kendo-angular-upload';
 import { ChartsModule } from '@progress/kendo-angular-charts';
 import { IntlModule } from '@progress/kendo-angular-intl';
 import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
@@ -32,9 +30,9 @@ import { NotificationModule } from '@progress/kendo-angular-notification';
 import { MessageService } from '@progress/kendo-angular-l10n';
 
 const drawerRoutes = [
-	{ path: '', component: TeamComponent },
-	{ path: 'dashboard', component: DashboardComponent },
-	{ path: 'info', component: InfoComponent }
+	{ path: '', component: PhongBanComponent },
+	{ path: 'dashboard', component: ChucDanhComponent },
+	{ path: 'info', component: NhanVienComponent },
 ];
 
 import 'hammerjs';
@@ -43,25 +41,40 @@ import '@progress/kendo-angular-intl/locales/en/all';
 import '@progress/kendo-angular-intl/locales/es/all';
 import '@progress/kendo-angular-intl/locales/fr/all';
 import { DialogsModule } from '@progress/kendo-angular-dialog';
-import { InfoEditFormComponent } from './components/info/info-edit-form.component';
-import { TeamEditFormComponent } from './components/team/team-edit-form.component';
-import { DashboardEditFormComponent } from './components/dashboard/dashboard-edit-form.component';
-import { TeamEditService } from './services/team-edit.service';
-import { InfoEditService } from './services/info-edit.service';
-import { DashboardEditService } from './services/dashboard-edit.service';
+import { JobTitleEditFormComponent } from './components/chuc-danh/jobtitle/jobtitle-edit-form.component';
+import { DepartmentEditService } from './services/department-edit.service';
+import { EmployeeEditService } from './services/employee-edit.service';
+import { JobTitleEditService } from './services/jobtitle-edit.service';
 import { SharedService } from './services/shared-service';
+import { DrawerPhongBanComponent } from './components/phong-ban/drawer-phong-ban/drawer-phong-ban.component';
+import { PhongBanComponent } from './components/phong-ban/phong-ban.component';
+import { DepartmentComponent } from './components/phong-ban/department/department.component';
+import { DepartmentEditFormComponent } from './components/phong-ban/department/Department-edit-form.component';
+import { ChucDanhComponent } from './components/chuc-danh/chuc-danh.component';
+import { DrawerChucDanhComponent } from './components/chuc-danh/drawer-chuc-danh/drawer-chuc-danh.component';
+import { NhanVienComponent } from './components/nhan-vien/nhan-vien.component';
+import { DrawerNhanVienComponent } from './components/nhan-vien/drawer-nhan-vien/drawer-nhan-vien.component';
+import { EmployeeComponent } from './components/nhan-vien/employee/employee.component';
+import { EmployeeEditFormComponent } from './components/nhan-vien/employee/employee-edit-form.component';
+import { CommonModule } from '@angular/common';
 
 
 @NgModule({
 	declarations: [
 		AppComponent,
-		DashboardComponent,
+		JobTitleComponent,
 		HeaderComponent,
-		InfoComponent,
-		TeamComponent,
-		InfoEditFormComponent,
-		TeamEditFormComponent,
-		DashboardEditFormComponent,
+		EmployeeComponent,
+		DepartmentComponent,
+		EmployeeEditFormComponent,
+		DepartmentEditFormComponent,
+		JobTitleEditFormComponent,
+		DrawerPhongBanComponent,
+		PhongBanComponent,
+		ChucDanhComponent,
+		DrawerChucDanhComponent,
+  		NhanVienComponent,
+  		DrawerNhanVienComponent
 	],
 	imports: [
 		BrowserModule,
@@ -86,25 +99,27 @@ import { SharedService } from './services/shared-service';
 		RouterModule.forRoot(drawerRoutes),
 		NotificationModule,
 		HttpClientJsonpModule,
-		DialogsModule
+		DialogsModule,
+		CommonModule,
+		UploadModule
 	],
 	providers: [
 		{ provide: MessageService, useClass: CustomMessagesService },
 		{ provide: LOCALE_ID, useValue: 'en-US' },
 		{
 			deps: [HttpClient],
-			provide: TeamEditService,
-			useFactory: (jsonp: HttpClient) => () => new TeamEditService(jsonp),
+			provide: DepartmentEditService,
+			useFactory: (jsonp: HttpClient) => () => new DepartmentEditService(jsonp),
 		},
 		{
 			deps: [HttpClient],
-			provide: DashboardEditService,
-			useFactory: (jsonp: HttpClient) => () => new DashboardEditService(jsonp),
+			provide: JobTitleEditService,
+			useFactory: (jsonp: HttpClient) => () => new JobTitleEditService(jsonp),
 		},
 		{
 			deps: [HttpClient],
-			provide: InfoEditService,
-			useFactory: (jsonp: HttpClient) => () => new InfoEditService(jsonp),
+			provide: EmployeeEditService,
+			useFactory: (jsonp: HttpClient) => () => new EmployeeEditService(jsonp),
 		},
 		SharedService
 	],
